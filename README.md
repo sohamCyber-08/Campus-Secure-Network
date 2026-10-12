@@ -185,9 +185,7 @@ show running-config
 
 ---
 
-# 🛠️ 7. Tasks to Perform
 
----
 # 🛠️ 7. Project Phases
 
 # 🔹 Phase 1 — Interface Configuration, VLANs and Switching
