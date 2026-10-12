@@ -690,6 +690,9 @@ The floor switches connect departmental endpoints to the network, while `MAIN_SW
 
 
 <br>
+
+
+```mermaid
 flowchart TB
     %% Central Network Infrastructure
     DHCP["DHCP_SERVER<br/>10.10.10.100"]
@@ -751,6 +754,10 @@ flowchart TB
     class SW1,SW2 switch;
     class IT1,HR,MGMT,CYBER1,IT2,CYBER2,FINANCE,MANAGER endpoint;
     class ATTACKER attacker;
+
+```
+
+
 
 <br>
 
