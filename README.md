@@ -19,7 +19,7 @@
 ## 🧭 Navigation
 
 - [🎯 Project Objective](#-1-project-objective)
-- [🖥️ Network Topology](#-2-network-topology)
+- [🖥️ Network Topology](#network-topology)
 - [🖧 Device Inventory](#-3-device-inventory)
 - [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
 - [🔌 Interface Mapping](#-5-interface-mapping)
@@ -43,6 +43,8 @@
 Design and implement a simulated enterprise campus network representing a small company's office environment with multiple floors and departments using EVE-NG and Cisco IOS. The project focuses on VLAN-based network segmentation, access and trunk port configuration, inter-VLAN routing, centralized DHCP services, and DHCP relay to enable dynamic IP address allocation across multiple subnets. It also incorporates DHCP Snooping to protect against unauthorized DHCP servers, SSH-only remote management to secure administrative access, and network connectivity verification using Cisco IOS diagnostic commands. The overall objective is to build a structured, reliable, and secure campus network while gaining practical experience in enterprise networking, network troubleshooting, and network security.
 
 
+
+<a id="network-topology"></a>
 
 ## 🖥️ 2. Network Topology
 
