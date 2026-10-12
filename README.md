@@ -12,6 +12,28 @@
 
 ---
 
+## 🧭 Navigation
+
+- [🎯 Project Objective](#-1-project-objective)
+- [🖥️ Network Topology](#-2-network-topology)
+- [🖧 Device Inventory](#-3-device-inventory)
+- [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
+- [🔌 Interface Mapping](#-5-interface-mapping)
+- [🛠️ Technologies Used](#-6-technologies-used)
+- [🛠️ Project Phases](#-7-project-phases)
+  - [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
+  - [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
+  - [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
+  - [Phase 4 — DTP Security](#-phase-4--disable-dtp-negotiation-using-switchport-nonegotiate)
+  - [Phase 5 — DHCP Snooping, DAI and Rate Limiting](#-phase-5--dhcp-snooping-dynamic-arp-inspection-dai-and-dhcp-rate-limiting)
+  - [Phase 6 — STP Security](#-phase-6--spanning-tree-protocol-stp-security-portfast-bpdu-guard-and-root-guard)
+- [🔄 Implementation Roadmap](#-7-project-implementation-roadmap)
+- [🧪 Verification and Testing](#-8-verification-and-testing)
+- [🏆 Project Outcomes](#-9-project-outcomes)
+- [👨‍💻 Author](#-author)
+
+---
+
 ## 🎯 1. Project Objective
 
 Design and implement a simulated enterprise campus network representing a small company's office environment with multiple floors and departments using EVE-NG and Cisco IOS. The project focuses on VLAN-based network segmentation, access and trunk port configuration, inter-VLAN routing, centralized DHCP services, and DHCP relay to enable dynamic IP address allocation across multiple subnets. It also incorporates DHCP Snooping to protect against unauthorized DHCP servers, SSH-only remote management to secure administrative access, and network connectivity verification using Cisco IOS diagnostic commands. The overall objective is to build a structured, reliable, and secure campus network while gaining practical experience in enterprise networking, network troubleshooting, and network security.
@@ -166,6 +188,8 @@ show running-config
 # 🛠️ 7. Tasks to Perform
 
 ---
+# 🛠️ 7. Project Phases
+
 # 🔹 Phase 1 — Interface Configuration, VLANs and Switching
 
 ## 🎯 Objective
@@ -1315,19 +1339,20 @@ These controls help protect the campus network against unauthorized STP particip
 
 
 
-# 🔄 8. Project Implementation Roadmap
+# 🔄 7. Project Implementation Roadmap
 
 | Phase | Title | Main Tasks |
 |---|---|---|
-| Phase 1 | VLANs and Interface Configuration | VLANs, access ports, trunk links, VLAN interfaces, DHCP relay |
-| Phase 2 | OSPF Routing | Dynamic routing, neighbor verification, route learning |
-| Phase 3 | Centralized DHCP Relay | DHCP scopes, helper addresses, client address allocation |
-| Phase 4 | SSH-Only Remote Management | SSH v2, local authentication, VTY restrictions |
-| Phase 5 | Network Verification | Connectivity testing, troubleshooting, evidence collection |
+| Phase 1 | VLANs and Interface Configuration | VLAN creation, access ports, trunk links, VLAN interfaces, and DHCP relay planning |
+| Phase 2 | Centralized DHCP Using Router-on-a-Stick | 802.1Q subinterfaces, DHCP pools, client address allocation, and connectivity testing |
+| Phase 3 | ACLs and Inter-VLAN Traffic Security | Manager VLAN access policy, departmental isolation, ACL application, and connectivity verification |
+| Phase 4 | DTP Security | Disable DTP negotiation on appropriate switch interfaces and verify static trunk operation |
+| Phase 5 | DHCP Snooping, DAI, and DHCP Rate Limiting | Protect against rogue DHCP, ARP spoofing, and excessive DHCP traffic |
+| Phase 6 | STP Security | PortFast, BPDU Guard, and Root Guard on appropriate interfaces |
 
 ---
 
-# 🧪 9. Verification and Testing
+# 🧪 8. Verification and Testing
 
 | Test | Verification Command | Expected Result |
 |---|---|---|
@@ -1381,7 +1406,7 @@ https://github.com/user-attachments/assets/80831762-09c0-4ac4-a4ce-7f074c6f8fd3
 
 ---
 
-# 🏆 10. Project Outcomes
+# 🏆 9. Project Outcomes
 
 This project demonstrates practical experience with:
 
