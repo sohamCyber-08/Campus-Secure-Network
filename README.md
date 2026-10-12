@@ -24,20 +24,6 @@ The project also incorporates DHCP Snooping, network connectivity verification, 
 
 The implementation is performed in EVE-NG using Cisco IOS or compatible network device images.
 
-### 🎯 Key Objectives
-
-- 🏢 Design a realistic multi-floor company network.
-- 🔀 Implement six departmental VLANs.
-- 🔌 Configure access and trunk interfaces.
-- 🌐 Configure VLAN interfaces and gateway addresses.
-- 📡 Implement DHCP relay for centralized address allocation.
-- 🛡️ Configure DHCP Snooping.
-- 🔍 Verify VLAN membership and trunk operation.
-- 🧪 Test endpoint connectivity and troubleshoot network issues.
-- 🔐 Extend the infrastructure with SSH-only remote management.
-- 📊 Document configurations and verification results.
-
----
 
 # 🖥️ 2. Network Topology
 
@@ -61,7 +47,8 @@ Upload your topology screenshot to:
 
 Then embed it using:
 
-![Campus Secure Network Topology](topology/campus-network-topology.png)
+<img width="1607" height="857" alt="Screenshot 2026-10-10 021307" src="https://github.com/user-attachments/assets/f096a1fe-21e0-4ed8-a22e-97489766acff" />
+
 
 ### 🔄 Logical Network Architecture
 
@@ -137,35 +124,11 @@ flowchart TB
 | 7 | `VPC2_IT_VLAN10` | IT | 10 |
 | 8 | `VPC6_VLAN60_MANAGER` | Manager | 60 |
 
-### 📊 Device Summary
-
-| Device Category | Count |
-|---|---:|
-| Switching devices | 3 |
-| DHCP server/router node | 1 |
-| Virtual PCs | 8 |
-| **Total visible nodes** | **12** |
-
 ---
 
 # 🔢 4. IP Addressing Plan
 
-## 🌐 4.1 VLAN and Subnet Addressing
-
-The campus network uses six VLANs to logically separate departments.
-
-Each VLAN has its own IPv4 subnet and designated gateway address.
-
-| VLAN ID | VLAN Name | Network Address | Subnet Mask | Default Gateway |
-|---:|---|---|---|---|
-| 10 | IT | `10.10.10.0/24` | `255.255.255.0` | `10.10.10.1` |
-| 20 | HR | `10.10.20.0/24` | `255.255.255.0` | `10.10.20.1` |
-| 30 | MGMT | `10.10.30.0/24` | `255.255.255.0` | `10.10.30.1` |
-| 40 | CYBER | `10.10.40.0/24` | `255.255.255.0` | `10.10.40.1` |
-| 50 | FINANCE | `10.10.50.0/24` | `255.255.255.0` | `10.10.50.1` |
-| 60 | MANAGER | `10.10.60.0/24` | `255.255.255.0` | `10.10.60.1` |
-
-## 💻 4.2 End-Device IP Addressing
+## 💻 4.1 End-Device IP Addressing
 
 | Device Name | VLAN | IP Address | Subnet Mask | Default Gateway |
 |---|---:|---|---|---|
@@ -178,7 +141,7 @@ Each VLAN has its own IPv4 subnet and designated gateway address.
 | `VPC2_IT_VLAN10` | 10 | `10.10.10.3` | `255.255.255.0` | `10.10.10.1` |
 | `VPC6_VLAN60_MANAGER` | 60 | `10.10.60.3` | `255.255.255.0` | `10.10.60.1` |
 
-## 📡 4.3 DHCP Server Addressing
+## 📡 4.2 DHCP Server Addressing
 
 | Parameter | Configuration |
 |---|---|
@@ -188,15 +151,12 @@ Each VLAN has its own IPv4 subnet and designated gateway address.
 | DHCP Relay Device | `MAIN_SWITCH` |
 | Helper Address | `10.10.10.100` |
 
-**Important:** The gateway addresses above are the planned values from the addressing scheme. Confirm that each corresponding VLAN interface is configured and operational.
+
 
 ---
 
 # 🔌 5. Interface Mapping
 
-This section documents the visible interface labels from the EVE-NG topology.
-
-Interface assignments should be confirmed against the running configuration and actual link connections before being treated as authoritative.
 
 ## 🔹 5.1 MAIN_SWITCH
 
