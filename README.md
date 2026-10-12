@@ -8,29 +8,31 @@
 
 
 
-
-
 ## 🧭 Navigation
 
-- [🎯 Project Objective](#-1-project-objective)
-- [🖥️ Network Topology](#network-topology)
-- [🖧 Device Inventory](#-3-device-inventory)
-- [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
-- [🔌 Interface Mapping](#-5-interface-mapping)
-- [🛠️ Technologies Used](#technologies-used)
-- [🛠️ Project Phases](#project-phases)
-  - [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
-  - [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
-  - [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
-  - [Phase 4 — DTP Security](#-phase-4--disable-dtp-negotiation-using-switchport-nonegotiate)
-  - [Phase 5 — DHCP Snooping, DAI and Rate Limiting](#-phase-5--dhcp-snooping-dynamic-arp-inspection-dai-and-dhcp-rate-limiting)
-  - [Phase 6 — STP Security](#-phase-6--spanning-tree-protocol-stp-security-portfast-bpdu-guard-and-root-guard)
-- [🔄 Implementation Roadmap](#-7-project-implementation-roadmap)
-- [🧪 Verification and Testing](#-8-verification-and-testing)
-- [🏆 Project Outcomes](#-9-project-outcomes)
-- [👨‍💻 Author](#author)
+* [🎯 Project Objective](#-1-project-objective)
+* [🖥️ Network Topology](#network-topology)
+* [🖧 Device Inventory](#-3-device-inventory)
+* [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
+* [🔌 Interface Mapping](#-5-interface-mapping)
+* [🛠️ Technologies Used](#technologies-used)
+* [🛠️ Project Phases](#project-phases)
+
+  * [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
+  * [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
+  * [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
+  * [Phase 4 — DTP Security](#-phase-4--disable-dtp-negotiation-using-switchport-nonegotiate)
+  * [Phase 5 — DHCP Snooping, DAI and Rate Limiting](#-phase-5--dhcp-snooping-dynamic-arp-inspection-dai-and-dhcp-rate-limiting)
+  * [Phase 6 — STP Security](#-phase-6--spanning-tree-protocol-stp-security-portfast-bpdu-guard-and-root-guard)
+* [🔄 Implementation Roadmap](#-7-project-implementation-roadmap)
+* [🧪 Verification and Testing](#-8-verification-and-testing)
+* [🏆 10. Project Results](#-10-project-results)
+* [🧠 11. Key Learnings](#-11-key-learnings)
+* [👨‍💻 Author](#author)
 
 ---
+
+
 <div align="center">
 
 **3 Switches** • **1 DHCP Server** • **8 Endpoints** • **6 VLANs** • **6 Departmental Networks**
@@ -1431,6 +1433,7 @@ This project demonstrates practical experience with:
 - Technical documentation and configuration verification.
 
 ---
+
 
 
 
