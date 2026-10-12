@@ -1105,7 +1105,222 @@ DHCP Snooping, Dynamic ARP Inspection, trusted-interface configuration, and DHCP
 
 
 
+# 🔹 Phase 6 — Spanning Tree Protocol (STP) Security: PortFast, BPDU Guard and Root Guard
 
+## 🎯 Objective
+
+Implement Layer 2 security across `SW_FLR1`, `SW_GROUND_FLR`, and `MAIN_SWITCH` by configuring PortFast and BPDU Guard on endpoint-facing access ports and Root Guard on selected downstream-facing interfaces of the main switch. These configurations help protect the campus network against unauthorized switches, rogue STP root bridge elections, and potential Layer 2 switching loops.
+
+---
+
+## 🏢 6.0 Real-World Scenario — Campus Network Security
+
+In a company office, employees connect their computers to access switches on the first and ground floors. `MAIN_SWITCH` provides central connectivity and acts as the intended STP root bridge.
+
+An attacker could connect an unauthorized switch to an employee-facing port or attempt to influence STP root bridge elections by sending malicious Bridge Protocol Data Units (BPDUs).
+
+These actions may cause unexpected changes to the STP topology, traffic disruption, or Layer 2 switching loops.
+
+To reduce these risks, the company implements **PortFast, BPDU Guard, and Root Guard** on appropriate interfaces.
+
+---
+
+## 🌐 6.0.1 STP Security Topology
+
+```mermaid
+flowchart TB
+    MAIN["MAIN_SWITCH<br/>Intended STP Root Bridge<br/>Root Guard on Selected Ports"]
+
+    subgraph FLOOR1["FIRST FLOOR"]
+        SW1["SW_FLR1<br/>PortFast + BPDU Guard"]
+
+        PC1["IT PC<br/>VLAN 10"]
+        PC2["HR PC<br/>VLAN 20"]
+        PC3["Management PC<br/>VLAN 30"]
+        PC4["Cybersecurity PC<br/>VLAN 40"]
+
+        SW1 --- PC1
+        SW1 --- PC2
+        SW1 --- PC3
+        SW1 --- PC4
+
+        ATTACKER1["⚠️ Unauthorized Switch"]
+        ATTACKER1 -.->|"Unauthorized BPDU"| SW1
+    end
+
+    subgraph GROUND["GROUND FLOOR"]
+        SW2["SW_GROUND_FLR<br/>PortFast + BPDU Guard"]
+
+        PC5["IT PC<br/>VLAN 10"]
+        PC6["Cybersecurity PC<br/>VLAN 40"]
+        PC7["Finance PC<br/>VLAN 50"]
+        PC8["Manager PC<br/>VLAN 60"]
+
+        SW2 --- PC5
+        SW2 --- PC6
+        SW2 --- PC7
+        SW2 --- PC8
+
+        ATTACKER2["⚠️ Unauthorized Switch"]
+        ATTACKER2 -.->|"Unauthorized BPDU"| SW2
+    end
+
+    MAIN ---|"Trunk: Root Guard"| SW1
+    MAIN ---|"Trunk: Root Guard"| SW2
+
+    classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000
+    classDef secure fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000
+    classDef endpoint fill:#f3f3f3,stroke:#666,color:#000
+    classDef threat fill:#f4cccc,stroke:#cc0000,stroke-width:2px,color:#990000
+
+    class MAIN core
+    class SW1,SW2 secure
+    class PC1,PC2,PC3,PC4,PC5,PC6,PC7,PC8 endpoint
+    class ATTACKER1,ATTACKER2 threat
+```
+
+---
+
+## 🚨 6.0.2 Potential STP Security Threats
+
+| No. | Attack / Threat | Potential Impact | Prevention Mechanism |
+|---:|---|---|---|
+| 1 | Rogue Switch Connection | An unauthorized switch may introduce unwanted Layer 2 connectivity. | BPDU Guard on endpoint-facing ports |
+| 2 | Rogue Root Bridge Attack | An attacker attempts to become the STP root bridge by sending superior BPDUs. | Root Guard on selected downstream-facing ports |
+| 3 | STP Topology Manipulation | Unauthorized BPDUs may influence spanning-tree decisions. | BPDU Guard and Root Guard, according to port role |
+| 4 | Layer 2 Switching Loop | Incorrect switch connections may create forwarding loops. | STP and correct switch configuration |
+| 5 | Broadcast Storm | A Layer 2 loop may cause excessive broadcast traffic. | STP loop prevention and appropriate Layer 2 security controls |
+
+---
+
+## 📍 6.1 SW_FLR1 — PortFast and BPDU Guard Configuration
+
+### 🎯 Objective
+
+Configure PortFast and BPDU Guard on endpoint-facing access ports of `SW_FLR1` to allow connected endpoints to enter the forwarding state quickly and protect against unauthorized switches sending BPDUs.
+
+### ⚙️ Tasks to Perform
+
+1. Identify endpoint-facing access interfaces.
+2. Enable PortFast on the appropriate access ports.
+3. Enable BPDU Guard on the same endpoint-facing ports.
+4. Keep trunk interfaces excluded from this access-port configuration.
+5. Verify PortFast and BPDU Guard operation.
+6. Save the configuration.
+
+### 🔐 Security Configuration
+
+
+
+| Interface | Connected Endpoint | Configuration |
+|---|---|---|
+| `Gi0/1` | IT PC — VLAN 10 | PortFast + BPDU Guard |
+| `Gi0/2` | HR PC — VLAN 20 | PortFast + BPDU Guard |
+| `Gi0/3` | Management PC — VLAN 30 | PortFast + BPDU Guard |
+| `Gi1/0` | Cybersecurity PC — VLAN 40 | PortFast + BPDU Guard |
+| `Gi0/0` | Trunk uplink | Excluded |
+| `Gi1/1` | Trunk uplink | Excluded |
+
+
+
+### 📸 Configuration Evidence
+<br>
+<img width="1426" height="805" alt="Screenshot 2026-10-09 212527" src="https://github.com/user-attachments/assets/b2a342d7-60b4-452e-99ba-e020ac448946" />
+
+<br>
+
+---
+
+## 📍 6.2 SW_GROUND_FLR — PortFast and BPDU Guard Configuration
+
+### 🎯 Objective
+
+Configure PortFast and BPDU Guard on endpoint-facing access ports of `SW_GROUND_FLR` to prevent unauthorized switches from influencing spanning-tree operation through employee-facing connections.
+
+### ⚙️ Tasks to Perform
+
+1. Identify endpoint-facing access interfaces.
+2. Enable PortFast on the appropriate access ports.
+3. Enable BPDU Guard on the same endpoint-facing ports.
+4. Exclude trunk interfaces from the access-port configuration.
+5. Verify PortFast and BPDU Guard operation.
+6. Save the configuration.
+
+### 🔐 Security Configuration
+
+
+| Interface | Connected Endpoint | Configuration |
+|---|---|---|
+| `Gi0/1` | Cybersecurity PC — VLAN 40 | PortFast + BPDU Guard |
+| `Gi0/2` | Finance PC — VLAN 50 | PortFast + BPDU Guard |
+| `Gi0/3` | Manager PC — VLAN 60 | PortFast + BPDU Guard |
+| `Gi1/0` | Additional endpoint, if connected | PortFast + BPDU Guard |
+| `Gi0/0` | Trunk uplink, if configured | Excluded |
+| `Gi1/1` | Trunk uplink | Excluded |
+
+
+
+
+
+### 📸 Configuration Evidence
+
+<img width="1662" height="768" alt="Screenshot 2026-10-09 213414" src="https://github.com/user-attachments/assets/cd75ae09-72a2-44eb-9ab5-6104835764cb" />
+
+
+---
+
+## 📍 6.3 MAIN_SWITCH — Root Guard Configuration
+
+### 🎯 Objective
+
+Configure Root Guard on selected downstream-facing interfaces of `MAIN_SWITCH` to prevent connected downstream switches from becoming the STP root bridge through superior BPDU advertisements.
+
+### ⚙️ Tasks to Perform
+
+1. Confirm that `MAIN_SWITCH` is intended to be the STP root bridge.
+2. Identify the downstream-facing trunk interfaces connected to `SW_FLR1` and `SW_GROUND_FLR`.
+3. Enable Root Guard on the selected interfaces.
+4. Verify the spanning-tree root bridge and interface configuration.
+5. Save the configuration.
+
+### 🔐 Security Configuration
+
+| Interface | Connected Device | Configuration |
+|---|---|---|
+| `Gi0/1` | `SW_FLR1` | Root Guard |
+| `Gi1/1` | `SW_GROUND_FLR` | Root Guard |
+
+
+
+### 📸 Configuration Evidence
+
+<img width="1367" height="487" alt="Screenshot 2026-10-09 214418" src="https://github.com/user-attachments/assets/7521fa57-afaa-4b74-821c-34516adfcba8" />
+
+
+---
+
+
+
+
+## 📋 Phase 6 — Implementation Summary
+
+| Task | Device | Security Configuration |
+|---|---|---|
+| 6.1 | `SW_FLR1` | PortFast + BPDU Guard |
+| 6.2 | `SW_GROUND_FLR` | PortFast + BPDU Guard |
+| 6.3 | `MAIN_SWITCH` | Root Guard |
+| 6.4 | All switches | STP security verification |
+| 6.5 | EVE-NG lab | Controlled security testing |
+
+---
+
+## ✅ Phase 6 — Final Result
+
+PortFast and BPDU Guard are configured on selected endpoint-facing access ports of `SW_FLR1` and `SW_GROUND_FLR`. Root Guard is configured on the selected downstream-facing interfaces of `MAIN_SWITCH`.
+
+These controls help protect the campus network against unauthorized STP participation, rogue root bridge attempts, and certain Layer 2 topology disruptions while preserving normal network operation.
+
+---
 
 
 
