@@ -1445,4 +1445,33 @@ This project demonstrates practical experience with:
 
 ---
 
+---
+
+# 🏆 10. Project Results
+
+Implemented an enterprise-style campus network in EVE-NG using Cisco IOS, focusing on departmental VLAN segmentation, centralized DHCP, traffic control, and Layer 2 security.
+
+* ✅ Configured 6 VLANs and access/trunk ports.
+* ✅ Implemented centralized DHCP and DHCP relay.
+* ✅ Configured ACLs for inter-VLAN traffic control.
+* ✅ Implemented DTP security, DHCP Snooping, and DAI.
+* ✅ Configured STP security using PortFast, BPDU Guard, and Root Guard.
+* ✅ Practiced network verification and troubleshooting.
+
+---
+
+# 🧠 11. Key Learnings
+
+* 🔹 VLAN configuration and network segmentation.
+* 🔹 Inter-VLAN routing and DHCP operations.
+* 🔹 ACLs and network traffic control.
+* 🔹 Layer 2 security and attack prevention.
+* 🔹 Cisco IOS troubleshooting commands.
+* 🔹 Network topology design and documentation using EVE-NG.
+
+---
+
+**Technologies:** EVE-NG | Cisco IOS | IPv4 | VLANs | DHCP | ACLs | DTP | DAI | STP | Wireshark
+
+---
 
