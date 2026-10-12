@@ -13,8 +13,8 @@
 ---
 
 
-## 🧭 Navigation
 
+## 🧭 Navigation
 
 - [🎯 Project Objective](#-1-project-objective)
 - [🖥️ Network Topology](#-2-network-topology)
@@ -22,17 +22,18 @@
 - [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
 - [🔌 Interface Mapping](#-5-interface-mapping)
 - [🛠️ Technologies Used](#-6-technologies-used)
-- [🚀 Project Phases](#-7-tasks-to-perform)
+- [🛠️ Project Phases](#-7-project-phases)
   - [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
   - [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
   - [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
   - [Phase 4 — DTP Security](#-phase-4--disable-dtp-negotiation-using-switchport-nonegotiate)
   - [Phase 5 — DHCP Snooping, DAI and Rate Limiting](#-phase-5--dhcp-snooping-dynamic-arp-inspection-dai-and-dhcp-rate-limiting)
   - [Phase 6 — STP Security](#-phase-6--spanning-tree-protocol-stp-security-portfast-bpdu-guard-and-root-guard)
-- [🔄 Implementation Roadmap](#-8-project-implementation-roadmap)
-- [🧪 Verification and Testing](#-9-verification-and-testing)
-- [🏆 Project Outcomes](#-10-project-outcomes)
+- [🔄 Implementation Roadmap](#-7-project-implementation-roadmap)
+- [🧪 Verification and Testing](#-8-verification-and-testing)
+- [🏆 Project Outcomes](#-9-project-outcomes)
 - [👨‍💻 Author](#-author)
+
 ---
 
 ## 🎯 1. Project Objective
