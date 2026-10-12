@@ -165,13 +165,6 @@ show running-config
 
 # 🛠️ 7. Tasks to Perform
 
-# 🔹 Phase 1 — Interface Configuration, VLANs and Switching
-
-## 🎯 Objective
-
-Configure all required VLANs, assign VLAN names, configure access and trunk ports, and implement DHCP relay on the central switch.
-The phase is divided into three tasks corresponding to the switches in the topology.
-
 ---
 # 🔹 Phase 1 — Interface Configuration, VLANs and Switching
 
@@ -384,6 +377,29 @@ show interfaces trunk
 <img width="1191" height="752" alt="Screenshot 2026-10-09 214340" src="https://github.com/user-attachments/assets/b0097e8e-5e58-49fc-910a-300ce36fda58" />
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 🔄 8. Project Implementation Roadmap
 
