@@ -4,13 +4,7 @@
 
 > **Enterprise Network Simulation | EVE-NG | IPv4 | VLANs | 802.1Q | DHCP | Network Security**
 
-<div align="center">
 
-**3 Switches** • **1 DHCP Server** • **8 Endpoints** • **6 VLANs** • **6 Departmental Networks**
-
-</div>
-
----
 
 
 
@@ -35,6 +29,13 @@
 - [🧪 Verification and Testing](#-8-verification-and-testing)
 - [🏆 Project Outcomes](#-9-project-outcomes)
 - [👨‍💻 Author](#author)
+
+---
+<div align="center">
+
+**3 Switches** • **1 DHCP Server** • **8 Endpoints** • **6 VLANs** • **6 Departmental Networks**
+
+</div>
 
 ---
 
