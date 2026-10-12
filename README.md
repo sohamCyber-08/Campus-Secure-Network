@@ -987,41 +987,28 @@ Enable DHCP Snooping and Dynamic ARP Inspection on the first-floor switch for al
 
 ### 🔐 Security Configuration
 
-```cisco
-configure terminal
+<br>
+<img width="1712" height="517" alt="Screenshot 2026-10-09 210826" src="https://github.com/user-attachments/assets/73cc9ff0-e62e-4dcf-b476-21dc3273d328" />
 
-ip dhcp snooping
-ip dhcp snooping vlan 10,20,30,40,50,60
+<br>
 
-ip arp inspection vlan 10,20,30,40,50,60
 
-interface GigabitEthernet0/0
- ip dhcp snooping trust
- ip arp inspection trust
-exit
 
-interface GigabitEthernet1/1
- ip dhcp snooping trust
- ip arp inspection trust
-exit
 
-end
-write memory
-```
-
-### 📸 Configuration Evidence
-
-Add your `SW_FLR1` DHCP Snooping and DAI configuration screenshots here.
 
 ### 🔍 Verification
 
 ```cisco
 show ip dhcp snooping
 show ip arp inspection interfaces
-show ip arp inspection vlan
-show ip dhcp snooping binding
 ```
 
+<br>
+
+<img width="1043" height="296" alt="Screenshot 2026-10-09 210923" src="https://github.com/user-attachments/assets/66633450-1dca-4612-915c-51b58eb85a2a" />
+
+
+<br>
 ---
 
 ## 📍 5.2 SW_GROUND_FLR — DHCP Snooping and Dynamic ARP Inspection
@@ -1041,40 +1028,15 @@ Enable DHCP Snooping and Dynamic ARP Inspection on the ground-floor switch to pr
 7. Save the configuration.
 
 ### 🔐 Security Configuration
+<img width="1512" height="600" alt="Screenshot 2026-10-09 215224" src="https://github.com/user-attachments/assets/11d34ca8-698e-4d18-b529-428d23407f43" />
 
-```cisco
-configure terminal
 
-ip dhcp snooping
-ip dhcp snooping vlan 10,20,30,40,50,60
-
-ip arp inspection vlan 10,20,30,40,50,60
-
-interface GigabitEthernet1/1
- ip dhcp snooping trust
- ip arp inspection trust
-exit
-
-interface GigabitEthernet0/0
- ip dhcp snooping trust
- ip arp inspection trust
-exit
-
-end
-write memory
-```
-
-### 📸 Configuration Evidence
-
-Add your `SW_GROUND_FLR` DHCP Snooping and DAI configuration screenshots here.
 
 ### 🔍 Verification
 
 ```cisco
 show ip dhcp snooping
 show ip arp inspection interfaces
-show ip arp inspection vlan
-show ip dhcp snooping binding
 ```
 
 ---
@@ -1099,35 +1061,7 @@ Enable DHCP Snooping and Dynamic ARP Inspection on `MAIN_SWITCH`, trust the legi
 
 ### 🔐 DHCP Snooping and DAI Configuration
 
-```cisco
-configure terminal
-
-ip dhcp snooping
-ip dhcp snooping vlan 10,20,30,40,50,60
-
-ip arp inspection vlan 10,20,30,40,50,60
-
-interface GigabitEthernet0/0
- description DHCP_SERVER
- ip dhcp snooping trust
- ip arp inspection trust
-exit
-
-interface GigabitEthernet0/1
- description UPLINK_TO_SW_FLR1
- ip dhcp snooping trust
- ip arp inspection trust
-exit
-
-interface GigabitEthernet1/1
- description UPLINK_TO_SW_GROUND_FLR
- ip dhcp snooping trust
- ip arp inspection trust
-exit
-
-end
-write memory
-```
+<img width="1320" height="702" alt="Screenshot 2026-10-09 214425" src="https://github.com/user-attachments/assets/1745ec03-e5c8-49f1-a0bf-59722ae37b8d" />
 
 ### 🚦 DHCP Rate Limiting
 
@@ -1140,31 +1074,7 @@ The following table reflects the rate-limit values shown in your configuration s
 | `GigabitEthernet1/1` | Selected interface | 5 packets per second |
 
 ### ⚙️ Rate-Limit Configuration
-
-```cisco
-configure terminal
-
-interface GigabitEthernet0/0
- ip dhcp snooping limit rate 10
-exit
-
-interface GigabitEthernet0/1
- ip dhcp snooping limit rate 5
-exit
-
-interface GigabitEthernet1/1
- ip dhcp snooping limit rate 5
-exit
-
-end
-write memory
-```
-
-> **Important:** Verify the actual interface connections before applying these settings. Rate limiting is generally most appropriate on untrusted client-facing ports. A legitimate DHCP server-facing interface normally does not require the same client-facing rate limit. Depending on the platform, exceeding a configured rate can place an interface into an error-disabled state.
-
-### 📸 Configuration Evidence
-
-Add your `MAIN_SWITCH` DHCP Snooping, DAI, and DHCP rate-limiting screenshots here.
+<img width="1258" height="532" alt="Screenshot 2026-10-09 214411" src="https://github.com/user-attachments/assets/b6f9ebed-104a-4245-9c6f-d6a4737f90b6" />
 
 ### 🔍 Verification
 
@@ -1177,125 +1087,6 @@ show running-config
 ```
 
 ---
-
-## 📍 5.4 Security Verification — DHCP Snooping and DAI
-
-### 🎯 Objective
-
-Verify that DHCP Snooping is operational, legitimate infrastructure-facing interfaces are trusted, endpoint-facing ports remain untrusted, and Dynamic ARP Inspection is enabled for the departmental VLANs.
-
-### 🔍 Verification Commands
-
-```cisco
-show ip dhcp snooping
-show ip dhcp snooping binding
-show ip arp inspection
-show ip arp inspection interfaces
-show ip arp inspection vlan
-show interfaces status
-```
-
-### 📋 Expected Security Behavior
-
-| Security Feature | Expected Behavior |
-|---|---|
-| DHCP Snooping | Filters unauthorized DHCP server messages arriving on untrusted interfaces. |
-| Trusted Interfaces | Allow legitimate DHCP server responses on the intended infrastructure paths. |
-| Untrusted Interfaces | Block unauthorized DHCP server responses from reaching clients. |
-| Dynamic ARP Inspection | Validates ARP messages using available DHCP Snooping bindings or configured ARP ACLs. |
-| DHCP Rate Limiting | Restricts DHCP packet rates on configured interfaces. |
-
-### 📸 Verification Evidence
-
-Add screenshots showing the output of the verification commands on all three switches.
-
----
-
-## 📍 5.5 End-to-End Connectivity and Security Testing
-
-### 🎯 Objective
-
-Confirm that security configurations do not disrupt legitimate DHCP address allocation or authorized communication between endpoints.
-
-### ⚙️ Tasks to Perform
-
-1. Renew DHCP leases on selected clients.
-2. Verify assigned IP addresses, subnet masks, and default gateways.
-3. Test connectivity between endpoints in the same VLAN.
-4. Test authorized communication between different VLANs according to the existing ACL policy.
-5. Verify DHCP Snooping bindings.
-6. Confirm that DAI is operational on the intended VLANs.
-7. Review logs and counters for dropped DHCP or ARP packets.
-
-### 🔍 Client Verification
-
-On VPCS clients:
-
-```text
-show ip
-ping 10.10.10.1
-```
-
-Use the correct gateway for each VLAN when testing other clients.
-
-### 🔍 Switch Verification
-
-```cisco
-show ip dhcp snooping binding
-show ip dhcp snooping statistics
-show ip arp inspection statistics
-show logging
-```
-
-*Some commands vary by Cisco IOS image and switch platform.*
-
-### 📋 Expected Results
-
-| Test | Expected Result |
-|---|---|
-| Legitimate DHCP allocation | Clients receive valid addresses and gateways. |
-| Same-VLAN connectivity | Communication succeeds when the endpoints and links are operational. |
-| Authorized inter-VLAN connectivity | Communication follows the existing ACL policy. |
-| Rogue DHCP responses | Blocked on untrusted interfaces. |
-| Invalid ARP messages | Dropped when they fail DAI validation. |
-| Excessive DHCP packets | Limited on interfaces where rate limiting is configured. |
-
-> **Testing note:** Perform security tests only in your authorized EVE-NG lab. Use a controlled rogue DHCP service or invalid ARP test traffic to validate the relevant controls.
-
----
-
-## 📋 Phase 5 — Security Implementation Summary
-
-| Device | DHCP Snooping | Dynamic ARP Inspection | DHCP Rate Limiting |
-|---|---|---|---|
-| `SW_FLR1` | Enabled | Enabled | As required |
-| `SW_GROUND_FLR` | Enabled | Enabled | As required |
-| `MAIN_SWITCH` | Enabled | Enabled | Selected interfaces |
-
----
-
-## ⚠️ Important Configuration Considerations
-
-- Trust only interfaces that connect to legitimate DHCP server paths or trusted infrastructure.
-- Keep user-facing access ports untrusted.
-- Verify interface mappings against the actual EVE-NG topology before applying trust commands.
-- DAI commonly uses DHCP Snooping bindings to validate ARP messages for dynamically addressed clients.
-- For statically addressed devices, configure suitable ARP ACLs when required.
-- DHCP Snooping and DAI must be supported by the selected switch image.
-- Ensure the existing DHCP and VLAN configurations continue to operate after enabling the security features.
-- Validate all security controls using command output and controlled tests before claiming that an attack has been prevented.
-
----
-
-## ✅ Phase 5 — Completion Status
-
-| Task | Configuration | Verification |
-|---|---|---|
-| 5.1 | `SW_FLR1` DHCP Snooping and DAI | DHCP Snooping and ARP inspection commands |
-| 5.2 | `SW_GROUND_FLR` DHCP Snooping and DAI | DHCP Snooping and ARP inspection commands |
-| 5.3 | `MAIN_SWITCH` DHCP Snooping, DAI and rate limiting | Interface trust and rate-limit verification |
-| 5.4 | Security feature verification | Bindings, interface states, and counters |
-| 5.5 | End-to-end connectivity testing | DHCP, ICMP, and security tests |
 
 ### 🎯 Phase 5 Result
 
