@@ -34,7 +34,7 @@
 - [🔄 Implementation Roadmap](#-7-project-implementation-roadmap)
 - [🧪 Verification and Testing](#-8-verification-and-testing)
 - [🏆 Project Outcomes](#-9-project-outcomes)
-- [👨‍💻 Author](#-author)
+- [👨‍💻 Author](#author)
 
 ---
 
