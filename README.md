@@ -14,15 +14,8 @@
 
 ## 🎯 1. Project Objective
 
-Design and implement a simulated enterprise campus network representing a small company's office environment with multiple departments and floors.
+Design and implement a simulated enterprise campus network representing a small company's office environment with multiple floors and departments using EVE-NG and Cisco IOS. The project focuses on VLAN-based network segmentation, access and trunk port configuration, inter-VLAN routing, centralized DHCP services, and DHCP relay to enable dynamic IP address allocation across multiple subnets. It also incorporates DHCP Snooping to protect against unauthorized DHCP servers, SSH-only remote management to secure administrative access, and network connectivity verification using Cisco IOS diagnostic commands. The overall objective is to build a structured, reliable, and secure campus network while gaining practical experience in enterprise networking, network troubleshooting, and network security.
 
-The network uses VLAN-based segmentation to separate departmental traffic, access ports to connect end devices, and trunk links to transport multiple VLANs between switches.
-
-A central switching device provides the VLAN gateway interfaces and DHCP relay functionality required by the design. A centralized DHCP server provides dynamic IP address allocation to the relevant client networks.
-
-The project also incorporates DHCP Snooping, network connectivity verification, and secure network management concepts.
-
-The implementation is performed in EVE-NG using Cisco IOS or compatible network device images.
 
 
 # 🖥️ 2. Network Topology
@@ -41,57 +34,7 @@ The DHCP server connects to the central switching infrastructure to provide DHCP
 
 ### 📸 EVE-NG Topology
 
-Upload your topology screenshot to:
-
-`topology/campus-network-topology.png`
-
-Then embed it using:
-
 <img width="1607" height="857" alt="Screenshot 2026-10-10 021307" src="https://github.com/user-attachments/assets/f096a1fe-21e0-4ed8-a22e-97489766acff" />
-
-
-### 🔄 Logical Network Architecture
-
-```mermaid
-flowchart TB
-    DHCP["DHCP_SERVER<br/>10.10.10.100"]
-
-    MAIN["MAIN_SWITCH<br/>Central Switching<br/>VLAN Interfaces and DHCP Relay"]
-
-    subgraph FLOOR1["First Floor"]
-        SW1["SW_FLR1"]
-
-        IT1["IT PC<br/>10.10.10.2"]
-        HR["HR PC<br/>10.10.20.2"]
-        MGMT["Management PC<br/>10.10.30.2"]
-        CYBER1["Cybersecurity PC<br/>10.10.40.3"]
-
-        SW1 --- IT1
-        SW1 --- HR
-        SW1 --- MGMT
-        SW1 --- CYBER1
-    end
-
-    subgraph GROUND["Ground Floor"]
-        SW2["SW_GROUND_FLR"]
-
-        IT2["IT PC<br/>10.10.10.3"]
-        CYBER2["Cybersecurity PC<br/>10.10.40.4"]
-        FINANCE["Finance PC<br/>10.10.50.2"]
-        MANAGER["Manager PC<br/>10.10.60.3"]
-
-        SW2 --- IT2
-        SW2 --- CYBER2
-        SW2 --- FINANCE
-        SW2 --- MANAGER
-    end
-
-    DHCP --- MAIN
-    MAIN --- SW1
-    MAIN --- SW2
-```
-
-> **Note:** This is a logical representation of the supplied topology. The actual interface connections and link types must match the EVE-NG lab.
 
 ---
 
