@@ -170,8 +170,14 @@ show running-config
 ## 🎯 Objective
 
 Configure all required VLANs, assign VLAN names, configure access and trunk ports, and implement DHCP relay on the central switch.
-
 The phase is divided into three tasks corresponding to the switches in the topology.
+
+---
+# 🔹 Phase 1 — Interface Configuration, VLANs and Switching
+
+## 🎯 Objective
+
+Configure all required VLANs, assign VLAN names, configure access and trunk ports, and implement DHCP relay on the central switch. This phase focuses on establishing departmental network segmentation and connectivity between switches. The implementation is divided into three tasks corresponding to the switches in the topology.
 
 ---
 
@@ -179,7 +185,7 @@ The phase is divided into three tasks corresponding to the switches in the topol
 
 ### 🎯 Objective
 
-Configure the first-floor switch to provide network connectivity to IT, HR, Management, and Cybersecurity endpoints.
+Configure the first-floor switch to provide network connectivity to IT, HR, Management, and Cybersecurity endpoints using VLAN segmentation, access ports, and trunk connectivity toward `MAIN_SWITCH`.
 
 ### ⚙️ Tasks to Perform
 
@@ -205,35 +211,59 @@ Configure the first-floor switch to provide network connectivity to IT, HR, Mana
 
 ### 🔌 Interface Configuration Plan
 
-| Interface | Connected Endpoint | VLAN |
-|---|---|---:|
-| `Gi0/1` | `VPC1_VLAN10_IT` | 10 |
-| `Gi0/2` | `VPC2_VLAN20_HR` | 20 |
-| `Gi0/3` | `VPC3_VLAN30_MGMT` | 30 |
-| `Gi1/0` | `VPC2_cyber_VLAN40` | 40 |
-| Uplink | `MAIN_SWITCH` | Trunk |
+| Interface | Connected Endpoint | VLAN / Mode |
+|---|---|---|
+| `Gi0/1` | `VPC1_VLAN10_IT` | VLAN 10 — Access |
+| `Gi0/2` | `VPC2_VLAN20_HR` | VLAN 20 — Access |
+| `Gi0/3` | `VPC3_VLAN30_MGMT` | VLAN 30 — Access |
+| `Gi1/0` | `VPC2_cyber_VLAN40` | VLAN 40 — Access |
+| Uplink | `MAIN_SWITCH` | Trunk — Multiple VLANs |
 
-*Confirm the uplink interface before applying configuration.*
+### 📸 Interface Configuration
+
+<img width="1757" height="623" alt="SW_FLR1 Interface Configuration" src="https://github.com/user-attachments/assets/d8219e66-7644-4280-a8d4-11ca4457fedd" />
+
+<br>
+
+### 🔗 Trunk Port Configuration
+
+<img width="1727" height="761" alt="SW_FLR1 Trunk Configuration" src="https://github.com/user-attachments/assets/a2fc3ecd-f70e-4683-900a-018bf7738e19" />
+
+<br>
+
+#### 📋 Trunk Configuration Details
+
+| Parameter | Description |
+|---|---|
+| Local Device | `SW_FLR1` |
+| Remote Device | `MAIN_SWITCH` |
+| Interface Type | Trunk |
+| Encapsulation | IEEE 802.1Q, where supported |
+| Allowed VLANs | `10,20,30,40,50,60` |
+| Purpose | Carry multiple departmental VLANs between switches |
+
 
 ### 🔍 Verification
 
 ```cisco
 show vlan brief
 show interfaces trunk
-show interfaces status
-show ip dhcp snooping
-show cdp neighbors
 ```
 
-### ✅ Expected Results
 
-- Required VLANs exist.
-- VLAN names are correct.
-- Endpoints are assigned to the intended VLANs.
-- The uplink carries the required VLANs.
-- DHCP Snooping is configured according to the topology.
+
+### 📸 VLAN and Trunk Verification
+
+<img width="1382" height="482" alt="SW_FLR1 VLAN and Trunk Verification" src="https://github.com/user-attachments/assets/59d431db-34c2-4f52-b33f-21198475c9d5" />
+
+<br>
+
+
+
+
 
 ---
+
 
 ## 📍 1.2 SW_GROUND_FLR — Ground-Floor Switch Configuration
 
