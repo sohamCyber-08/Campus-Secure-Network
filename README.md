@@ -24,7 +24,7 @@
 - [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
 - [🔌 Interface Mapping](#-5-interface-mapping)
 - [🛠️ Technologies Used](#technologies-used)
-- [🛠️ Project Phases](#-7-project-phases)
+- [🛠️ Project Phases](#project-phases)
   - [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
   - [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
   - [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
@@ -193,8 +193,10 @@ show running-config
 
 ---
 
+<a id="project-phases"></a>
 
-# 🛠️ 7. Project Phases
+## 🛠️ 7. Project Phases
+
 
 # 🔹 Phase 1 — Interface Configuration, VLANs and Switching
 
