@@ -694,21 +694,15 @@ The floor switches connect departmental endpoints to the network, while `MAIN_SW
 
 ```mermaid
 flowchart TB
-    %% Central Network Infrastructure
     DHCP["DHCP_SERVER<br/>10.10.10.100"]
     MAIN["MAIN_SWITCH<br/>Central Layer 3 Switch<br/>VLAN Gateways | ACL Policies"]
+    ATTACKER["⚠️ ATTACKER<br/>Unauthorized Switch<br/>DTP Negotiation Attempt"]
 
     DHCP --- MAIN
 
-    %% Attacker Scenario
-    ATTACKER["⚠️ ATTACKER<br/>Rogue Switch<br/>Unauthorized Trunk Attempt"]
-
-    %% First Floor
     subgraph FLOOR1["🏢 FIRST FLOOR"]
         direction TB
-
-        SW1["SW_FLR1<br/>First-Floor Switch"]
-
+        SW1["SW_FLR1<br/>DTP Disabled on Appropriate Ports"]
         IT1["IT PC<br/>VLAN 10<br/>10.10.10.2"]
         HR["HR PC<br/>VLAN 20<br/>10.10.20.2"]
         MGMT["Management PC<br/>VLAN 30<br/>10.10.30.2"]
@@ -720,12 +714,9 @@ flowchart TB
         SW1 --- CYBER1
     end
 
-    %% Ground Floor
     subgraph GROUND["🏢 GROUND FLOOR"]
         direction TB
-
-        SW2["SW_GROUND_FLR<br/>Ground-Floor Switch"]
-
+        SW2["SW_GROUND_FLR<br/>DTP Disabled on Appropriate Ports"]
         IT2["IT PC<br/>VLAN 10<br/>10.10.10.3"]
         CYBER2["Cybersecurity PC<br/>VLAN 40<br/>10.10.40.4"]
         FINANCE["Finance PC<br/>VLAN 50<br/>10.10.50.2"]
@@ -737,14 +728,12 @@ flowchart TB
         SW2 --- MANAGER
     end
 
-    %% Switch Uplinks
     MAIN --- SW1
     MAIN --- SW2
+    SW1 ---|"Inter-switch Link"| SW2
 
-    %% Unauthorized Connection Attempt
-    ATTACKER -.->|"DTP Negotiation Attempt"| SW1
+    ATTACKER -.->|"DTP Attack Attempt"| SW1
 
-    %% Styling
     classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000;
     classDef switch fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000;
     classDef endpoint fill:#f3f3f3,stroke:#666,stroke-width:1px,color:#000;
@@ -754,7 +743,6 @@ flowchart TB
     class SW1,SW2 switch;
     class IT1,HR,MGMT,CYBER1,IT2,CYBER2,FINANCE,MANAGER endpoint;
     class ATTACKER attacker;
-
 ```
 
 
