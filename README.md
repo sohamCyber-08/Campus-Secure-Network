@@ -231,18 +231,6 @@ Configure the first-floor switch to provide network connectivity to IT, HR, Mana
 
 <br>
 
-#### 📋 Trunk Configuration Details
-
-| Parameter | Description |
-|---|---|
-| Local Device | `SW_FLR1` |
-| Remote Device | `MAIN_SWITCH` |
-| Interface Type | Trunk |
-| Encapsulation | IEEE 802.1Q, where supported |
-| Allowed VLANs | `10,20,30,40,50,60` |
-| Purpose | Carry multiple departmental VLANs between switches |
-
-
 ### 🔍 Verification
 
 ```cisco
@@ -292,22 +280,32 @@ Configure the ground-floor switch to provide network connectivity to IT, Cyberse
 | `Gi0/3` | `VPC6_VLAN60_MANAGER` | 60 |
 | Uplink | `MAIN_SWITCH` | Trunk |
 
+### 📸 Interface Configuration
+
+<img width="1615" height="652" alt="Screenshot 2026-10-09 213227" src="https://github.com/user-attachments/assets/af983fe3-aec2-479f-a54f-615f9e509635" />
+
+
+<br>
+
+### 🔗 Trunk Port Configuration
+
+<img width="1322" height="568" alt="Screenshot 2026-10-09 213237" src="https://github.com/user-attachments/assets/2d2a3ca9-d2f0-4aba-8523-e9070424bacf" />
+
+
+<br>
+
+
 ### 🔍 Verification
 
 ```cisco
 show vlan brief
 show interfaces trunk
-show interfaces status
-show ip dhcp snooping
-show cdp neighbors
 ```
+<br>
+<img width="1702" height="645" alt="Screenshot 2026-10-09 213308" src="https://github.com/user-attachments/assets/a9a721fb-289e-4b68-a6bb-3e96dc467fc8" />
 
-### ✅ Expected Results
+<br>
 
-- The required VLANs are created.
-- Access interfaces are assigned correctly.
-- The trunk link carries the required VLANs.
-- Connected endpoints can reach their local gateways when the relevant gateway interfaces are operational.
 
 ---
 
@@ -357,32 +355,33 @@ Apply the helper address to each relevant client VLAN interface that requires DH
 
 A helper address is not necessarily required on VLAN 10 because the DHCP server is directly connected to the same subnet in this design.
 
+### 📸 Interface Configuration
+
+<img width="1672" height="605" alt="Screenshot 2026-10-09 214309" src="https://github.com/user-attachments/assets/0b7cdcb3-cc81-4265-ab21-f683e40aee1c" />
+
+
+
+<br>
+<img width="1531" height="783" alt="Screenshot 2026-10-09 214317" src="https://github.com/user-attachments/assets/eba7a53d-91f5-48db-9c25-6170b804b171" />
+<br>
+
+
+### 🔗 Trunk Port Configuration
+
+<br>
+<img width="1326" height="425" alt="Screenshot 2026-10-09 214324" src="https://github.com/user-attachments/assets/6059ffb5-27ba-4e86-a840-fe9f67fc8541" />
+
+<br>
+
+
+<br>
 ### 🔍 Verification
 
 ```cisco
 show vlan brief
 show interfaces trunk
-show ip interface brief
-show running-config
-show ip dhcp snooping
-show ip dhcp snooping binding
 ```
-
-### ⚠️ Configuration Considerations
-
-- Confirm that the switch image supports Layer 3 routing and VLAN interfaces.
-- Ensure that the relevant VLAN interfaces are operational.
-- Ensure the DHCP server has the appropriate scopes and return connectivity.
-- Trust only the interfaces that should receive legitimate DHCP server messages.
-- Confirm that DHCP Snooping is supported by the selected device image.
-
-### ✅ Expected Results
-
-- All six VLANs are configured.
-- VLAN interfaces use the planned gateway addresses.
-- Trunk links transport the required VLANs.
-- DHCP requests reach the centralized server through the relay.
-- DHCP Snooping is configured and verified.
+<img width="1191" height="752" alt="Screenshot 2026-10-09 214340" src="https://github.com/user-attachments/assets/b0097e8e-5e58-49fc-910a-300ce36fda58" />
 
 ---
 
