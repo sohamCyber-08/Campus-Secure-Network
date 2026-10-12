@@ -23,7 +23,7 @@
 - [🖧 Device Inventory](#-3-device-inventory)
 - [🔢 IP Addressing Plan](#-4-ip-addressing-plan)
 - [🔌 Interface Mapping](#-5-interface-mapping)
-- [🛠️ Technologies Used](#-6-technologies-used)
+- [🛠️ Technologies Used](#technologies-used)
 - [🛠️ Project Phases](#-7-project-phases)
   - [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
   - [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
@@ -169,7 +169,9 @@ show running-config
 
 ---
 
-# 🛠️ 6. Technologies Used
+<a id="technologies-used"></a>
+
+## 🛠️ 6. Technologies Used
 
 | Technology | Purpose |
 |---|---|
