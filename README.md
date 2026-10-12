@@ -15,7 +15,6 @@
 
 ## 🧭 Navigation
 
-## 🧭 Navigation
 
 - [🎯 Project Objective](#-1-project-objective)
 - [🖥️ Network Topology](#-2-network-topology)
