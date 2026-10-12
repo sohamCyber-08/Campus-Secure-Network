@@ -44,9 +44,9 @@ Design and implement a simulated enterprise campus network representing a small 
 
 
 
-# 🖥️ 2. Network Topology
+## 🖥️ 2. Network Topology
 
-## 🏢 Campus Network Architecture
+### 🏢 Campus Network Architecture
 
 The network is organized into three main switching components:
 
