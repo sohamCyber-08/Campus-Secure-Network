@@ -1343,39 +1343,45 @@ These controls help protect the campus network against unauthorized STP particip
 
 ---
 
-# 📸 10. Project Screenshots
 
-Organize the screenshots by implementation phase.
 
-```text
-screenshots/
-├── phase-1-vlan-switching/
-│   ├── eve-ng-topology.png
-│   ├── vlan-configuration.png
-│   ├── access-port-configuration.png
-│   ├── trunk-configuration.png
-│   ├── vlan-interface-addressing.png
-│   └── dhcp-snooping.png
-│
-├── phase-2-ospf-routing/
-│   ├── ospf-configuration.png
-│   ├── ospf-neighbors.png
-│   └── routing-table.png
-│
-├── phase-3-dhcp-relay/
-│   ├── dhcp-server-configuration.png
-│   ├── dhcp-relay-configuration.png
-│   └── client-address-allocation.png
-│
-└── phase-4-ssh-management/
-    ├── ssh-configuration.png
-    ├── ssh-connectivity.png
-    └── wireshark-ssh-capture.png
-```
+<br>
+
+
+https://github.com/user-attachments/assets/2c71e12b-5065-4c2d-b3e9-925cf49d7a7d
+
+
+<br>
+
+
+https://github.com/user-attachments/assets/bcc6d587-dd49-455c-9717-876c694baa22
+
+
+<br>
+
+
+
+https://github.com/user-attachments/assets/72e1e5c1-8f03-4ff2-817c-f1fc63f43957
+
+
+<br>
+
+
+https://github.com/user-attachments/assets/80831762-09c0-4ac4-a4ce-7f074c6f8fd3
+
+
+<br>
+
+
+
+
+
+
+
 
 ---
 
-# 🏆 11. Project Outcomes
+# 🏆 10. Project Outcomes
 
 This project demonstrates practical experience with:
 
@@ -1392,19 +1398,7 @@ This project demonstrates practical experience with:
 
 ---
 
-# 🔮 12. Future Enhancements
 
-Potential improvements include:
-
-- 🔒 Access Control Lists (ACLs) for inter-VLAN traffic restrictions.
-- 🛡️ Port Security on appropriate access ports.
-- 🔐 Dedicated management VLAN with restricted administrative access.
-- 📊 Centralized logging and monitoring.
-- ⏱️ Reliable NTP synchronization.
-- 🧪 Additional failure testing and recovery documentation.
-- 📈 Network monitoring and performance analysis.
-
----
 
 ## 👨‍💻 Author
 
@@ -1418,4 +1412,4 @@ Potential improvements include:
 
 ---
 
-> ⚠️ **Disclaimer:** This project is intended for educational and laboratory use. Validate all device configurations and security controls against the capabilities of the selected network images before applying them to a production network.
+
