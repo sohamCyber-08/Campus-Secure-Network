@@ -695,14 +695,14 @@ The floor switches connect departmental endpoints to the network, while `MAIN_SW
 ```mermaid
 flowchart TB
     DHCP["DHCP_SERVER<br/>10.10.10.100"]
-    MAIN["MAIN_SWITCH<br/>DHCP Snooping | DAI | Rate Limiting"]
-    ATTACKER["⚠️ ATTACKER<br/>Rogue DHCP Server<br/>ARP Spoofing"]
+    MAIN["MAIN_SWITCH<br/>Central Layer 3 Switch<br/>VLAN Gateways | ACL Policies"]
+    ATTACKER["⚠️ ATTACKER<br/>Unauthorized Switch<br/>DTP Negotiation Attempt"]
 
-    DHCP ---|"Trusted DHCP Connection"| MAIN
+    DHCP --- MAIN
 
     subgraph FLOOR1["🏢 FIRST FLOOR"]
         direction TB
-        SW1["SW_FLR1<br/>DHCP Snooping + DAI"]
+        SW1["SW_FLR1<br/>DTP Disabled on Appropriate Ports"]
         IT1["IT PC<br/>VLAN 10<br/>10.10.10.2"]
         HR["HR PC<br/>VLAN 20<br/>10.10.20.2"]
         MGMT["Management PC<br/>VLAN 30<br/>10.10.30.2"]
@@ -716,7 +716,7 @@ flowchart TB
 
     subgraph GROUND["🏢 GROUND FLOOR"]
         direction TB
-        SW2["SW_GROUND_FLR<br/>DHCP Snooping + DAI"]
+        SW2["SW_GROUND_FLR<br/>DTP Disabled on Appropriate Ports"]
         IT2["IT PC<br/>VLAN 10<br/>10.10.10.3"]
         CYBER2["Cybersecurity PC<br/>VLAN 40<br/>10.10.40.4"]
         FINANCE["Finance PC<br/>VLAN 50<br/>10.10.50.2"]
@@ -728,11 +728,11 @@ flowchart TB
         SW2 --- MANAGER
     end
 
-    MAIN ---|"Trusted Uplink"| SW1
-    MAIN ---|"Trusted Uplink"| SW2
+    MAIN --- SW1
+    MAIN --- SW2
     SW1 ---|"Inter-switch Link"| SW2
 
-    ATTACKER -.->|"Rogue DHCP / Forged ARP"| SW1
+    ATTACKER -.->|"DTP Attack Attempt"| SW1
 
     classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000;
     classDef switch fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000;
@@ -895,14 +895,14 @@ To mitigate these threats, the company implements **DHCP Snooping, Dynamic ARP I
 ```mermaid
 flowchart TB
     DHCP["DHCP_SERVER<br/>10.10.10.100"]
+    MAIN["MAIN_SWITCH<br/>DHCP Snooping | DAI | Rate Limiting"]
+    ATTACKER["⚠️ ATTACKER<br/>Rogue DHCP Server<br/>ARP Spoofing"]
 
-    MAIN["MAIN_SWITCH<br/>Central Switch<br/>DHCP Snooping | DAI | Rate Limiting"]
-
-    ATTACKER["⚠️ ATTACKER<br/>Unauthorized Device<br/>Rogue DHCP Server<br/>Forged ARP Messages"]
+    DHCP ---|"Trusted DHCP Connection"| MAIN
 
     subgraph FLOOR1["🏢 FIRST FLOOR"]
+        direction TB
         SW1["SW_FLR1<br/>DHCP Snooping + DAI"]
-
         IT1["IT PC<br/>VLAN 10<br/>10.10.10.2"]
         HR["HR PC<br/>VLAN 20<br/>10.10.20.2"]
         MGMT["Management PC<br/>VLAN 30<br/>10.10.30.2"]
@@ -915,8 +915,8 @@ flowchart TB
     end
 
     subgraph GROUND["🏢 GROUND FLOOR"]
+        direction TB
         SW2["SW_GROUND_FLR<br/>DHCP Snooping + DAI"]
-
         IT2["IT PC<br/>VLAN 10<br/>10.10.10.3"]
         CYBER2["Cybersecurity PC<br/>VLAN 40<br/>10.10.40.4"]
         FINANCE["Finance PC<br/>VLAN 50<br/>10.10.50.2"]
@@ -928,22 +928,21 @@ flowchart TB
         SW2 --- MANAGER
     end
 
-    DHCP ---|"Legitimate DHCP Connection"| MAIN
+    MAIN ---|"Trusted Uplink"| SW1
+    MAIN ---|"Trusted Uplink"| SW2
+    SW1 ---|"Inter-switch Link"| SW2
 
-    MAIN ---|"Switch Uplink"| SW1
-    MAIN ---|"Switch Uplink"| SW2
+    ATTACKER -.->|"Rogue DHCP / Forged ARP"| SW1
 
-    ATTACKER -.->|"Unauthorized Connection Attempt"| SW1
+    classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000;
+    classDef switch fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000;
+    classDef endpoint fill:#f3f3f3,stroke:#666,stroke-width:1px,color:#000;
+    classDef attacker fill:#f4cccc,stroke:#cc0000,stroke-width:2px,color:#990000;
 
-    classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000
-    classDef secure fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000
-    classDef endpoint fill:#f3f3f3,stroke:#666,color:#000
-    classDef threat fill:#f4cccc,stroke:#cc0000,stroke-width:2px,color:#990000
-
-    class DHCP,MAIN core
-    class SW1,SW2 secure
-    class IT1,HR,MGMT,CYBER1,IT2,CYBER2,FINANCE,MANAGER endpoint
-    class ATTACKER threat
+    class MAIN,DHCP core;
+    class SW1,SW2 switch;
+    class IT1,HR,MGMT,CYBER1,IT2,CYBER2,FINANCE,MANAGER endpoint;
+    class ATTACKER attacker;
 ```
 
 ---
