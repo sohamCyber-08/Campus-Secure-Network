@@ -695,14 +695,14 @@ The floor switches connect departmental endpoints to the network, while `MAIN_SW
 ```mermaid
 flowchart TB
     DHCP["DHCP_SERVER<br/>10.10.10.100"]
-    MAIN["MAIN_SWITCH<br/>Central Layer 3 Switch<br/>VLAN Gateways | ACL Policies"]
-    ATTACKER["⚠️ ATTACKER<br/>Unauthorized Switch<br/>DTP Negotiation Attempt"]
+    MAIN["MAIN_SWITCH<br/>DHCP Snooping | DAI | Rate Limiting"]
+    ATTACKER["⚠️ ATTACKER<br/>Rogue DHCP Server<br/>ARP Spoofing"]
 
-    DHCP --- MAIN
+    DHCP ---|"Trusted DHCP Connection"| MAIN
 
     subgraph FLOOR1["🏢 FIRST FLOOR"]
         direction TB
-        SW1["SW_FLR1<br/>DTP Disabled on Appropriate Ports"]
+        SW1["SW_FLR1<br/>DHCP Snooping + DAI"]
         IT1["IT PC<br/>VLAN 10<br/>10.10.10.2"]
         HR["HR PC<br/>VLAN 20<br/>10.10.20.2"]
         MGMT["Management PC<br/>VLAN 30<br/>10.10.30.2"]
@@ -716,7 +716,7 @@ flowchart TB
 
     subgraph GROUND["🏢 GROUND FLOOR"]
         direction TB
-        SW2["SW_GROUND_FLR<br/>DTP Disabled on Appropriate Ports"]
+        SW2["SW_GROUND_FLR<br/>DHCP Snooping + DAI"]
         IT2["IT PC<br/>VLAN 10<br/>10.10.10.3"]
         CYBER2["Cybersecurity PC<br/>VLAN 40<br/>10.10.40.4"]
         FINANCE["Finance PC<br/>VLAN 50<br/>10.10.50.2"]
@@ -728,11 +728,11 @@ flowchart TB
         SW2 --- MANAGER
     end
 
-    MAIN --- SW1
-    MAIN --- SW2
+    MAIN ---|"Trusted Uplink"| SW1
+    MAIN ---|"Trusted Uplink"| SW2
     SW1 ---|"Inter-switch Link"| SW2
 
-    ATTACKER -.->|"DTP Attack Attempt"| SW1
+    ATTACKER -.->|"Rogue DHCP / Forged ARP"| SW1
 
     classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000;
     classDef switch fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000;
@@ -1118,53 +1118,51 @@ To reduce these risks, the company implements **PortFast, BPDU Guard, and Root G
 ```mermaid
 flowchart TB
     MAIN["MAIN_SWITCH<br/>Intended STP Root Bridge<br/>Root Guard on Selected Ports"]
+    ATTACKER["⚠️ ATTACKER<br/>Unauthorized Switch<br/>Malicious BPDU"]
 
-    subgraph FLOOR1["FIRST FLOOR"]
+    subgraph FLOOR1["🏢 FIRST FLOOR"]
+        direction TB
         SW1["SW_FLR1<br/>PortFast + BPDU Guard"]
+        IT1["IT PC<br/>VLAN 10"]
+        HR["HR PC<br/>VLAN 20"]
+        MGMT["Management PC<br/>VLAN 30"]
+        CYBER1["Cybersecurity PC<br/>VLAN 40"]
 
-        PC1["IT PC<br/>VLAN 10"]
-        PC2["HR PC<br/>VLAN 20"]
-        PC3["Management PC<br/>VLAN 30"]
-        PC4["Cybersecurity PC<br/>VLAN 40"]
-
-        SW1 --- PC1
-        SW1 --- PC2
-        SW1 --- PC3
-        SW1 --- PC4
-
-        ATTACKER1["⚠️ Unauthorized Switch"]
-        ATTACKER1 -.->|"Unauthorized BPDU"| SW1
+        SW1 --- IT1
+        SW1 --- HR
+        SW1 --- MGMT
+        SW1 --- CYBER1
     end
 
-    subgraph GROUND["GROUND FLOOR"]
+    subgraph GROUND["🏢 GROUND FLOOR"]
+        direction TB
         SW2["SW_GROUND_FLR<br/>PortFast + BPDU Guard"]
+        IT2["IT PC<br/>VLAN 10"]
+        CYBER2["Cybersecurity PC<br/>VLAN 40"]
+        FINANCE["Finance PC<br/>VLAN 50"]
+        MANAGER["Manager PC<br/>VLAN 60"]
 
-        PC5["IT PC<br/>VLAN 10"]
-        PC6["Cybersecurity PC<br/>VLAN 40"]
-        PC7["Finance PC<br/>VLAN 50"]
-        PC8["Manager PC<br/>VLAN 60"]
-
-        SW2 --- PC5
-        SW2 --- PC6
-        SW2 --- PC7
-        SW2 --- PC8
-
-        ATTACKER2["⚠️ Unauthorized Switch"]
-        ATTACKER2 -.->|"Unauthorized BPDU"| SW2
+        SW2 --- IT2
+        SW2 --- CYBER2
+        SW2 --- FINANCE
+        SW2 --- MANAGER
     end
 
-    MAIN ---|"Trunk: Root Guard"| SW1
-    MAIN ---|"Trunk: Root Guard"| SW2
+    MAIN ---|"Root Guard on Selected Ports"| SW1
+    MAIN ---|"Root Guard on Selected Ports"| SW2
+    SW1 ---|"Inter-switch Link"| SW2
 
-    classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000
-    classDef secure fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000
-    classDef endpoint fill:#f3f3f3,stroke:#666,color:#000
-    classDef threat fill:#f4cccc,stroke:#cc0000,stroke-width:2px,color:#990000
+    ATTACKER -.->|"Malicious BPDU Attempt"| SW1
 
-    class MAIN core
-    class SW1,SW2 secure
-    class PC1,PC2,PC3,PC4,PC5,PC6,PC7,PC8 endpoint
-    class ATTACKER1,ATTACKER2 threat
+    classDef core fill:#cfe2f3,stroke:#1155cc,stroke-width:2px,color:#000;
+    classDef switch fill:#d9ead3,stroke:#38761d,stroke-width:2px,color:#000;
+    classDef endpoint fill:#f3f3f3,stroke:#666,stroke-width:1px,color:#000;
+    classDef attacker fill:#f4cccc,stroke:#cc0000,stroke-width:2px,color:#990000;
+
+    class MAIN core;
+    class SW1,SW2 switch;
+    class IT1,HR,MGMT,CYBER1,IT2,CYBER2,FINANCE,MANAGER endpoint;
+    class ATTACKER attacker;
 ```
 
 ---
