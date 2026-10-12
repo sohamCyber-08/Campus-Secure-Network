@@ -1433,7 +1433,7 @@ This project demonstrates practical experience with:
 
 
 
-## 👨‍💻 Author
+## Author
 
 **Project:** Campus Secure Network
 
