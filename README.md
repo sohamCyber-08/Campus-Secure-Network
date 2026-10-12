@@ -17,7 +17,6 @@
 * [🔌 Interface Mapping](#-5-interface-mapping)
 * [🛠️ Technologies Used](#technologies-used)
 * [🛠️ Project Phases](#project-phases)
-
   * [Phase 1 — VLANs and Interface Configuration](#-phase-1--interface-configuration-vlans-and-switching)
   * [Phase 2 — Centralized DHCP and Router-on-a-Stick](#-phase-2--centralized-dhcp-configuration-using-router-on-a-stick)
   * [Phase 3 — ACLs and Inter-VLAN Traffic Security](#-phase-3--access-control-lists-acls-and-inter-vlan-traffic-security)
